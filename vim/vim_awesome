@@ -1,0 +1,90 @@
+Tomado de http://blog.desdelinux.net/la-configuracion-para-vim-definitiva/
+
+Seguramente todos debéis conocer Vim, a mi parecer el mejor editor de texto para GNU/Linux. Las primeras veces que usé Vim me pareció muy complicado, pero desde que administro el servidor dedicado de mi blog personal, se ha convertido en mi editor por defecto, incluso para programar, en este artículo veremos cómo aplicar la configuración definitiva para Vim gracias a un repositorio que encontré en GitHub.
+
+Como es habitual en el mundo del software libre, Vim posee una gran capacidad de configuración y personalización. Así que decidí buscar en la red configuraciones que facilitaran la tarea de programar y me topé con un repositorio en GitHub creado por Amix, que durante 8 años ha estado usando y modificando Vim para obtener un vimrc definitivo. El repositorio en cuestión lo podéis encontrar aquí, veamos cómo instalarlo.
+En el proceso de instalación será necesario usar Git, si no estás acostumbrado a este programa puedes echar un vistazo a esta chuleta de comandos para Git
+Versión básica o versión “Awesome”
+
+Es posible elegir entre dos versiones, una básica que no instalará ningún plugin, u otra mucho más completa que hará de Vim un editor muy potente.
+
+Para instalar la básica basta con ejecutar el comando siguiente:
+
+$ git clone git://github.com/amix/vimrc.git ~/.vim_runtime
+$ sh ~/.vim_runtime/install_basic_vimrc.sh
+
+Y para la avanzada o “Awesome”:
+
+git clone git://github.com/amix/vimrc.git ~/.vim_runtime
+sh ~/.vim_runtime/install_awesome_vimrc.sh
+
+El vimrc para la versión “Awesome” es como sigue:
+
+set runtimepath+=~/.vim_runtime
+
+source ~/.vim_runtime/vimrcs/basic.vim
+source ~/.vim_runtime/vimrcs/filetypes.vim
+source ~/.vim_runtime/vimrcs/plugins_config.vim
+source ~/.vim_runtime/vimrcs/extended.vim
+
+try
+source ~/.vim_runtime/my_configs.vim
+catch
+endtry
+
+Para añadir nuestras propias configuraciones hemos de editar el fichero ~/.vim_runtime/my_configs.vim.
+Editar la configuración por defecto
+
+En la instalación el esquema de colores por defecto se establece a peaksea, es posible cambiar los colores usados para resaltar la sintaxis por Vim editando el fichero ~/.vim_runtime/my_configs.vim y añadiendo la siguiente línea:
+
+colorscheme peaksea
+
+Hay que reemplazar peaksea por cualquiera de estos otros 3 esquemas de colores:
+
+    solarized
+    pyte
+    ir_black
+
+Posibles problemas con el fondo transparente
+
+Es posible que al instalar esta configuración para Vim perdamos el fondo transparente de la terminal y veamos vim de la siguiente forma:
+
+La configuración para Vim definitiva
+
+Para solucionar el problema es necesario añadir las siguientes líneas al archivo ~/.vim_runtime/my_configs.vim:
+
+hi NonText ctermfg=18 ctermbg=NONE cterm=NONE
+hi Normal ctermfg=16 ctermbg=NONE cterm=NONE
+hi Special ctermfg=Yellow ctermbg=NONE
+hi Comment ctermfg=DarkYellow ctermbg=NONE
+hi Constant ctermfg=Blue ctermbg=NONE
+hi Number ctermfg=Yellow ctermbg=NONE
+hi LineNr ctermfg=DarkGrey ctermbg=NONE
+hi PreProc ctermfg=Green ctermbg=NONE
+hi Statement ctermfg=Cyan ctermbg=NONE
+hi Type ctermfg=Cyan ctermbg=NONE
+hi Error ctermfg=Red ctermbg=NONE
+hi Identifier ctermfg=Magenta   ctermbg=NONE
+hi SpecialKey ctermfg=Cyan ctermbg=NONE
+hi NonText ctermfg=Blue ctermbg=NONE
+hi Directory ctermfg=Blue ctermbg=NONE
+hi MoreMsg ctermfg=Green ctermbg=NONE
+hi Title ctermfg=Magenta ctermbg=NONE
+hi WarningMsg ctermfg=Red ctermbg=NONE
+hi DiffDelete ctermfg=Blue ctermbg=NONE
+
+Lo cual elimina el fondo negro (ctermbg=NONE) de todas las palabras clave del lenguaje de programación y de los sitios en los que no haya texto (NonText).
+Estos parámetros se basan en el esquema de colores peaksea, simplemente he modificado el atributo ctermbg para establecer el color de fondo a ninguno. Si elegís otro esquema de colores deberéis buscar su configuración por defecto, copiarla y pegarla en vuestra configuración estableciendo ctermbg a NONE
+Otras modificaciones
+
+Personalmente me gusta resaltar la línea actual con la siguiente apariencia:
+
+hi CursorLine guifg=NONE guibg=#121212 gui=NONE ctermfg=NONE ctermbg=NONE cterm=BOLD
+hi CursorColumn guifg=NONE guibg=#121212 gui=NONE ctermfg=NONE ctermbg=NONE cterm=BOLD
+
+Tras aplicar todos estos cambios, el aspecto de Vim es el siguiente:
+
+La configuración para Vim definitiva21
+Conclusión
+
+Este ha sido mi primer artículo como colaborador en DesdeLinux, espero que os haya resultado de utilidad. ¿Conocíais esta configuración para Vim?. ¿Qué personalizaciones le habéis hecho? Dejad un comentario!.
